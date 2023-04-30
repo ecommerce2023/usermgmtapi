@@ -1,7 +1,9 @@
 package com.ecommerce.usermgmtapi.domain;
 
-import jakarta.annotation.Nonnull;
+import com.ecommerce.usermgmtapi.constants.ErrorMessages;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,20 +11,22 @@ import java.util.Date;
 @Entity(name = "\"user\"")
 @Data
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Nonnull
+    @NotBlank(message = ErrorMessages.FIRST_NAME_REQUIRED)
     private String firstName;
 
-    @Nonnull
+    @NotBlank(message = ErrorMessages.LAST_NAME_REQUIRED)
     private String lastName;
 
-    @Nonnull
+    @NotBlank(message = ErrorMessages.MOBILE_REQUIRED)
     private String mobile;
 
-    @Nonnull
+    @NotBlank(message = ErrorMessages.EMAIL_REQUIRED)
+    @Email(message = ErrorMessages.EMAIL_IS_INVALID)
     private String email;
 
     private String alternateMobile;
@@ -39,4 +43,5 @@ public class User {
     protected void onUpdate() {
         lastModifiedOn = new Date();
     }
+
 }
