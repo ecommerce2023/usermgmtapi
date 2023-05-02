@@ -1,20 +1,13 @@
-package com.ecommerce.usermgmtapi.domain;
+package com.ecommerce.usermgmtapi.payload.request;
 
 import com.ecommerce.usermgmtapi.constants.ErrorMessages;
-import jakarta.persistence.*;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import java.util.Date;
-
-@Entity(name = "\"user\"")
 @Data
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+public class SignupRequest {
 
     @NotBlank(message = ErrorMessages.FIRST_NAME_REQUIRED)
     private String firstName;
@@ -30,18 +23,8 @@ public class User {
     private String email;
 
     private String alternateMobile;
-
+    
+    @NotBlank(message = ErrorMessages.PASSWORD_REQUIRED)
     private String password;
-
-    private Boolean isActive = true;
-
-    private Date createdOn = new Date();
-
-    private Date lastModifiedOn;
-
-    @PreUpdate
-    protected void onUpdate() {
-        lastModifiedOn = new Date();
-    }
 
 }
