@@ -1,6 +1,6 @@
 package com.ecommerce.usermgmtapi.serviceImpl;
 
-import com.ecommerce.usermgmtapi.domain.User;
+import com.ecommerce.usermgmtapi.models.User;
 import com.ecommerce.usermgmtapi.repositories.UserRepository;
 import com.ecommerce.usermgmtapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.ecommerce.usermgmtapi.services;
 
-import com.ecommerce.usermgmtapi.domain.User;
-
 import java.util.Optional;
+
+import com.ecommerce.usermgmtapi.models.User;
 
 public interface UserService {
     User save(User user);
