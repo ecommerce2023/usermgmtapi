@@ -7,13 +7,13 @@ import java.util.List;
 @Data
 public class UserInfoResponse {
 
-	private Long userId;
-	private String email;
-	private List<String> roles;
+    private Long userId;
+    private String email;
+    private List<String> roles;
 
-	public UserInfoResponse(Long userId, String email, List<String> roles) {
-		this.userId = userId;
-		this.email = email;
-		this.roles = roles;
-	}
+    public UserInfoResponse(Long userId, String email, List<String> roles) {
+        this.userId = userId;
+        this.email = email;
+        this.roles = roles;
+    }
 }

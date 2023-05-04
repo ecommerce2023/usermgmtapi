@@ -11,13 +11,13 @@ import java.util.Date;
 @Data
 public class Role {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long roleId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long roleId;
 
-	@Enumerated(EnumType.STRING)
-	@NotBlank(message = ErrorMessages.ROLE_NAME_REQUIRED)
-	private ERole roleName;
+    @Enumerated(EnumType.STRING)
+    @NotBlank(message = ErrorMessages.ROLE_NAME_REQUIRED)
+    private ERole roleName;
 
-	private Date createdOn = new Date();
+    private Date createdOn = new Date();
 }

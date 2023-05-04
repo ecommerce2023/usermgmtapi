@@ -15,60 +15,60 @@ import java.util.stream.Collectors;
 @Data
 public class UserDetailsImpl implements UserDetails {
 
-	private Long userId;
-	private String email;
-	@JsonIgnore
-	private String password;
+    private Long userId;
+    private String email;
+    @JsonIgnore
+    private String password;
 
-	private Collection<? extends GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long userId, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
-		this.userId = userId;
-		this.email = email;
-		this.password = password;
-		this.authorities = authorities;
-	}
+    public UserDetailsImpl(Long userId, String email, String password,
+                           Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
-	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getRoleName().name())).collect(Collectors.toList());
+    public static UserDetailsImpl build(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName().name())).collect(Collectors.toList());
 
-		return new UserDetailsImpl(user.getUserId(), user.getEmail(), user.getPassword(), authorities);
-	}
+        return new UserDetailsImpl(user.getUserId(), user.getEmail(), user.getPassword(), authorities);
+    }
 
-	@Override
-	public String getUsername() {
-		return email;
-	}
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		UserDetailsImpl user = (UserDetailsImpl) o;
-		return Objects.equals(userId, user.userId);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        UserDetailsImpl user = (UserDetailsImpl) o;
+        return Objects.equals(userId, user.userId);
+    }
 }

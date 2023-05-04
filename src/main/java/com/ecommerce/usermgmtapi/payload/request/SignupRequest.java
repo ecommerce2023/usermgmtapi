@@ -22,7 +22,7 @@ public class SignupRequest {
     private String email;
 
     private String alternateMobile;
-    
+
     @NotBlank(message = ErrorMessages.PASSWORD_REQUIRED)
     private String password;
 

@@ -34,54 +34,54 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-	@Autowired
-	AuthenticationManager authenticationManager;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-	@Autowired
-	RoleRepository roleRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
-	@Autowired
-	PasswordEncoder encoder;
+    @Autowired
+    PasswordEncoder encoder;
 
-	@Autowired
-	JwtUtils jwtUtils;
-	
-	@Autowired
-	UserService userService;
+    @Autowired
+    JwtUtils jwtUtils;
+
+    @Autowired
+    UserService userService;
 
 
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-				.collect(Collectors.toList());
+        List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+                .collect(Collectors.toList());
 
-		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(
-				new UserInfoResponse(userDetails.getUserId(), userDetails.getEmail(), roles));
-	}
-	
-	
-	@PostMapping("/signup")
-	public User register(@Valid @RequestBody SignupRequest signupRequest) {
-		Set<Role> roles = new HashSet<>();
-		Role role = roleRepository.findByRoleName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException(ErrorMessages.ROLE_NOT_FOUND));
-		roles.add(role);
-		User user = new User(signupRequest);
-		user.setRoles(roles);
-		user.setPassword(encoder.encode(user.getPassword()));
-		return this.userService.save(user);
-	}
-	
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(
+                new UserInfoResponse(userDetails.getUserId(), userDetails.getEmail(), roles));
+    }
+
+
+    @PostMapping("/signup")
+    public User register(@Valid @RequestBody SignupRequest signupRequest) {
+        Set<Role> roles = new HashSet<>();
+        Role role = roleRepository.findByRoleName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException(ErrorMessages.ROLE_NOT_FOUND));
+        roles.add(role);
+        User user = new User(signupRequest);
+        user.setRoles(roles);
+        user.setPassword(encoder.encode(user.getPassword()));
+        return this.userService.save(user);
+    }
+
 }

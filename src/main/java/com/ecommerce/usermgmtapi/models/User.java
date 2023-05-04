@@ -41,29 +41,29 @@ public class User {
     private Date createdOn = new Date();
 
     private Date lastModifiedOn;
-    
+
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role_map", 
-               joinColumns = @JoinColumn(name = "user_id"),
-               inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role_map",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    public User() {
+
+    }
+
+    public User(SignupRequest signupRequest) {
+        this.email = signupRequest.getEmail();
+        this.password = signupRequest.getPassword();
+        this.alternateMobile = signupRequest.getAlternateMobile();
+        this.mobile = signupRequest.getMobile();
+        this.firstName = signupRequest.getFirstName();
+        this.lastName = signupRequest.getLastName();
+    }
 
     @PreUpdate
     protected void onUpdate() {
         lastModifiedOn = new Date();
-    }
-    
-    public User() {
-    	
-    }
-    
-    public User(SignupRequest signupRequest) {
-    	this.email = signupRequest.getEmail();
-    	this.password = signupRequest.getPassword();
-    	this.alternateMobile = signupRequest.getAlternateMobile();
-    	this.mobile = signupRequest.getMobile();
-    	this.firstName = signupRequest.getFirstName();
-    	this.lastName = signupRequest.getLastName();
     }
 
 }
