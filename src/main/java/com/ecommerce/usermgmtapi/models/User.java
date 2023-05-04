@@ -2,7 +2,6 @@ package com.ecommerce.usermgmtapi.models;
 
 import com.ecommerce.usermgmtapi.constants.ErrorMessages;
 import com.ecommerce.usermgmtapi.payload.request.SignupRequest;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
