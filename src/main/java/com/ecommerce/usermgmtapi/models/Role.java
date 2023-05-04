@@ -20,4 +20,5 @@ public class Role {
     private ERole roleName;
 
     private Date createdOn = new Date();
+
 }

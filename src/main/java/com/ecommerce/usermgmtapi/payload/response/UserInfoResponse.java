@@ -8,7 +8,9 @@ import java.util.List;
 public class UserInfoResponse {
 
     private Long userId;
+
     private String email;
+
     private List<String> roles;
 
     public UserInfoResponse(Long userId, String email, List<String> roles) {
@@ -16,4 +18,5 @@ public class UserInfoResponse {
         this.email = email;
         this.roles = roles;
     }
+
 }

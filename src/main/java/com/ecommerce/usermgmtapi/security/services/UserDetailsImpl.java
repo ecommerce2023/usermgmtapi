@@ -16,7 +16,9 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails {
 
     private Long userId;
+
     private String email;
+
     @JsonIgnore
     private String password;
 
@@ -71,4 +73,5 @@ public class UserDetailsImpl implements UserDetails {
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(userId, user.userId);
     }
+
 }
