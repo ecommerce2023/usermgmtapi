@@ -23,4 +23,5 @@ public class UserServiceImpl implements UserService {
     public Optional<User> getById(Long id) {
         return this.userRepository.findById(id);
     }
+
 }

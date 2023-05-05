@@ -1,76 +1,77 @@
 package com.ecommerce.usermgmtapi.security.services;
 
+import com.ecommerce.usermgmtapi.models.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.ecommerce.usermgmtapi.models.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.Data;
-
 @Data
 public class UserDetailsImpl implements UserDetails {
 
-	private Long userId;
-	private String email;
-	@JsonIgnore
-	private String password;
+    private Long userId;
 
-	private Collection<? extends GrantedAuthority> authorities;
+    private String email;
 
-	public UserDetailsImpl(Long userId, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
-		this.userId = userId;
-		this.email = email;
-		this.password = password;
-		this.authorities = authorities;
-	}
+    @JsonIgnore
+    private String password;
 
-	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getRoleName().name())).collect(Collectors.toList());
+    private Collection<? extends GrantedAuthority> authorities;
 
-		return new UserDetailsImpl(user.getUserId(), user.getEmail(), user.getPassword(), authorities);
-	}
+    public UserDetailsImpl(Long userId, String email, String password,
+                           Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
-	@Override
-	public String getUsername() {
-		return email;
-	}
+    public static UserDetailsImpl build(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName().name())).collect(Collectors.toList());
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+        return new UserDetailsImpl(user.getUserId(), user.getEmail(), user.getPassword(), authorities);
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		UserDetailsImpl user = (UserDetailsImpl) o;
-		return Objects.equals(userId, user.userId);
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        UserDetailsImpl user = (UserDetailsImpl) o;
+        return Objects.equals(userId, user.userId);
+    }
+
 }

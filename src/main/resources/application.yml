@@ -5,6 +5,6 @@ spring:
     password:
 
 jwt:
-    cookieName: accessToken
-    secret:
-    expiration: 86400000	
+  cookieName: accessToken
+  secret:
+  expiration: 86400000

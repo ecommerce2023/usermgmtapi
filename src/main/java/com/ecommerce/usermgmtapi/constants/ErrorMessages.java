@@ -11,8 +11,8 @@ public class ErrorMessages {
     public static final String MOBILE_REQUIRED = "Mobile number is required";
     public static final String EMAIL_REQUIRED = "Email is required";
     public static final String ROLE_NAME_REQUIRED = "Role name is required";
-    public static final String EMAIL_IS_INVALID = "Email is not valid";   
+    public static final String EMAIL_IS_INVALID = "Email is not valid";
     public static final String ROLE_NOT_FOUND = "Role not found";
-	public static final String PASSWORD_REQUIRED = "Password is required";
-    
+    public static final String PASSWORD_REQUIRED = "Password is required";
+
 }
