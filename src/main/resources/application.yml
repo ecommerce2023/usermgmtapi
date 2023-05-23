@@ -3,8 +3,30 @@ spring:
     url: jdbc:postgresql://localhost:5432/ecommerce?currentSchema=usermgmt
     username:
     password:
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
+          facebook:
+            client-id:
+            client-secret:
+          github:
+            client-id:
+            client-secret:
+          okta:
+            client-id:
+            client-secret:
+        provider:
+          okta:
+            authorization-uri:
+            token-uri:
+            user-info-uri:
+            jwk-set-uri:
 jwt:
   cookieName: accessToken
   secret:
   expiration: 86400000
+  

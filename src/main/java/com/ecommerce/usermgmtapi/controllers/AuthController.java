@@ -84,4 +84,9 @@ public class AuthController {
         return this.userService.save(user);
     }
 
+    @GetMapping("/callback")
+    public String welcome() {
+        return "callback";
+    }
+
 }
